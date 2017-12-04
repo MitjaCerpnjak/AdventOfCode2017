@@ -42,7 +42,13 @@ namespace AdventOfCode_Day1
             int sum = 0;
             int repeats = 0;
             int result = 0;
-
+            
+            if (captcha.Length == 0)
+            {
+                Console.WriteLine("No data!");
+                return 0;
+            }
+            
             for (int i = 0; i < captcha.Length - 1; i++)
             {
                 if (captcha[i] == captcha[i + 1])
