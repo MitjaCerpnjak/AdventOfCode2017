@@ -47,8 +47,7 @@ namespace AdventOfCode_Day1
             {
                 Console.WriteLine("No data!");
                 return 0;
-            }
-            
+            }            
             for (int i = 0; i < captcha.Length - 1; i++)
             {
                 if (captcha[i] == captcha[i + 1])
@@ -100,7 +99,12 @@ namespace AdventOfCode_Day1
             string path = AppDomain.CurrentDomain.BaseDirectory;
             string captcha = File.ReadAllText(Path.GetFullPath(Path.Combine(path, @"..\..\captcha.txt")));
             int result = 0;
-
+            
+            if (captcha.Length == 0)
+            {
+                Console.WriteLine("No data!");
+                return 0;
+            }
             for (int i = 0; i < captcha.Length - (captcha.Length / 2); i++)
             {
                 if (captcha[i] == captcha[i + (captcha.Length / 2)])
