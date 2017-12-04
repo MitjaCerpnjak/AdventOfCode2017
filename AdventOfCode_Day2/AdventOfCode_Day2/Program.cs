@@ -167,7 +167,7 @@ namespace AdventOfCode_Day2
             // Get path to executable file (\bin\Debug)
             string path = AppDomain.CurrentDomain.BaseDirectory;
             // Read all data in file + go back 2 directories 
-            // (had to do this since I delete \bin + \obj folders to ge the whole project uploaded)
+            // (had to do this since I delete \bin + \obj folders to upload the whole project)
             string input = File.ReadAllText(Path.GetFullPath(Path.Combine(path, @"..\..\input.txt"))); 
             
             Console.WriteLine("Advent of Code Day 2; Part One\nSum: " + AdventOfCode_Part1(input));
