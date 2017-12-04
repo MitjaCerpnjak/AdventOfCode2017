@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +9,7 @@ namespace AdventOfCode_Day1
 {
     class Program
     {
-        static public int AdventOfCode_Part1()
+        static public int AdventOfCode_Part1(string captcha)
         {
             /*
             --- Day 1: Inverse Captcha ---
@@ -37,48 +37,49 @@ namespace AdventOfCode_Day1
             91212129 produces 9 because the only digit that matches the next one is the last digit, 9.
             What is the solution to your captcha?
             */
-            string path = AppDomain.CurrentDomain.BaseDirectory;
-            string captcha = File.ReadAllText(Path.GetFullPath(Path.Combine(path, @"..\..\captcha.txt")));
+            
             int sum = 0;
             int repeats = 0;
             int result = 0;
-            
+
             if (captcha.Length == 0)
             {
                 Console.WriteLine("No data!");
                 return 0;
-            }            
+            }
             for (int i = 0; i < captcha.Length - 1; i++)
             {
+                //Compare values
                 if (captcha[i] == captcha[i + 1])
                 {
                     repeats++;
                     if (repeats == 1)
-                    {
+                    {   // Get value if there's a match + convert Char value to Integer
                         sum = (int)Char.GetNumericValue((captcha[i]));
                     }
                     else if (repeats > 1)
-                    {
+                    {   // If there are multiple matches, convert Char value to Integer and multiply 
                         sum = repeats * (int)Char.GetNumericValue((captcha[i]));
                     }
                 }
                 else
                 {
                     if (repeats >= 1)
-                    {
+                    {   // If there's at least one match add the value to the result
                         result += sum;
                     }
 
                     repeats = 0;
                 }
             }
+            // Compare the 1st and last value since it's meant to be a circle
             if (captcha[0] == captcha[captcha.Length - 1])
             {
                 result += (int)Char.GetNumericValue((captcha[0]));
             }
             return result;
         }
-        static public int AdventOfCode_Part2()
+        static public int AdventOfCode_Part2(string captcha)
         {
             /*
             --- Part Two ---
@@ -96,15 +97,14 @@ namespace AdventOfCode_Day1
             12131415 produces 4.
             What is the solution to your new captcha?
             */
-            string path = AppDomain.CurrentDomain.BaseDirectory;
-            string captcha = File.ReadAllText(Path.GetFullPath(Path.Combine(path, @"..\..\captcha.txt")));
             int result = 0;
-            
+
             if (captcha.Length == 0)
             {
                 Console.WriteLine("No data!");
                 return 0;
             }
+            // Halve captcha.Length since we add the other half to compare data
             for (int i = 0; i < captcha.Length - (captcha.Length / 2); i++)
             {
                 if (captcha[i] == captcha[i + (captcha.Length / 2)])
@@ -116,15 +116,14 @@ namespace AdventOfCode_Day1
         }
         static void Main(string[] args)
         {
-            int result = 0;
-            int result2 = 0;
+            // Get path to executable file (\bin\Debug)
+            string path = AppDomain.CurrentDomain.BaseDirectory;
+            // Read all data in file + go back 2 directories 
+            // (had to do this since I delete \bin + \obj folders to ge the whole project uploaded)
+            string captcha = File.ReadAllText(Path.GetFullPath(Path.Combine(path, @"..\..\captcha.txt")));
 
-            result = AdventOfCode_Part1();
-            result2 = AdventOfCode_Part2();
-
-            Console.WriteLine("Advent of Code Part 1\nAnswer: " + result);
-            Console.WriteLine("\n\nAdvent of Code Part 2\nAnswer: " + result2 + "\n");
+            Console.WriteLine("Advent of Code Part 1\nAnswer: " + AdventOfCode_Part1(captcha));
+            Console.WriteLine("\n\nAdvent of Code Part 2\nAnswer: " + AdventOfCode_Part2(captcha) + "\n");
         }
     }
 }
-
